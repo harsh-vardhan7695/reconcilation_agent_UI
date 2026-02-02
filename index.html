@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CME Expense Reconciliation - Multi-Agent Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>Reconciliation and Workflow Automation using AI Agents</span>
+            </div>
+            <div class="header-info">
+                <span class="badge">Multi-Agent AI Solution</span>
+                <span class="status-indicator">
+                    <span class="pulse"></span>
+                    System Active
+                </span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Left Panel - Data Sources -->
+            <aside class="left-panel">
+                <!-- Data Sources -->
+                <div class="panel-section data-sources">
+                    <h3><i class="fas fa-database"></i> Data Sources</h3>
+                    <div class="source-list">
+                        <div class="source-item" id="source-s3">
+                            <i class="fab fa-aws"></i>
+                            <span>S3 Bucket</span>
+                            <span class="source-status">Ready</span>
+                        </div>
+                        <div class="source-item" id="source-citi">
+                            <i class="fas fa-university"></i>
+                            <span>Citi Bank</span>
+                            <span class="source-status">Connected</span>
+                        </div>
+                        <div class="source-item" id="source-concur">
+                            <i class="fas fa-receipt"></i>
+                            <span>Concur</span>
+                            <span class="source-status">Connected</span>
+                        </div>
+                        <div class="source-item" id="source-cvent">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Cvent</span>
+                            <span class="source-status">Connected</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center - Agent Visualization -->
+            <section class="center-panel">
+                <div class="orchestrator-container">
+                    <div class="orchestrator" id="orchestrator">
+                        <div class="orchestrator-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <span class="orchestrator-label">Semantic Kernel Orchestrator</span>
+                        <div class="orchestrator-status" id="orchestrator-status">Idle</div>
+                    </div>
+                </div>
+
+                <div class="agents-grid">
+                    <!-- Agent 1: Citi-Concur Reconciliation -->
+                    <div class="agent-card" id="agent-citi" data-agent="citi">
+                        <div class="agent-header">
+                            <div class="agent-icon citi">
+                                <i class="fas fa-balance-scale"></i>
+                            </div>
+                            <div class="agent-title">
+                                <h4>CitiConcurReconciliationAgent</h4>
+                                <span class="agent-role">Phase 1 Reconciliation</span>
+                            </div>
+                        </div>
+                        <div class="agent-body">
+                            <div class="agent-description">
+                                Matches Citi bank transactions to Concur expenses
+                            </div>
+                            <div class="agent-plugins">
+                                <span class="plugin-tag"><i class="fas fa-plug"></i> Citi Connector</span>
+                                <span class="plugin-tag"><i class="fas fa-plug"></i> Concur API</span>
+                            </div>
+                            <div class="agent-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-citi"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text-citi">Idle</span>
+                            </div>
+                        </div>
+                        <div class="agent-status" id="status-citi">
+                            <i class="fas fa-circle"></i> Standby
+                        </div>
+                    </div>
+
+                    <!-- Agent 2: Invoice Processor -->
+                    <div class="agent-card" id="agent-invoice" data-agent="invoice">
+                        <div class="agent-header">
+                            <div class="agent-icon invoice">
+                                <i class="fas fa-file-invoice"></i>
+                            </div>
+                            <div class="agent-title">
+                                <h4>CventInvoiceProcessorAgent</h4>
+                                <span class="agent-role">Document Processing</span>
+                            </div>
+                        </div>
+                        <div class="agent-body">
+                            <div class="agent-description">
+                                Reads invoices (PDF/images), extracts text and classifies documents
+                            </div>
+                            <div class="agent-plugins">
+                                <span class="plugin-tag"><i class="fas fa-eye"></i> Multimodal LLM</span>
+                            </div>
+                            <div class="agent-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-invoice"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text-invoice">Idle</span>
+                            </div>
+                        </div>
+                        <div class="agent-status" id="status-invoice">
+                            <i class="fas fa-circle"></i> Standby
+                        </div>
+                    </div>
+
+                    <!-- Agent 3: Entity Extractor -->
+                    <div class="agent-card" id="agent-entity" data-agent="entity">
+                        <div class="agent-header">
+                            <div class="agent-icon entity">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div class="agent-title">
+                                <h4>CventEntityExtractorAgent</h4>
+                                <span class="agent-role">Data Extraction</span>
+                            </div>
+                        </div>
+                        <div class="agent-body">
+                            <div class="agent-description">
+                                Pulls transaction date, amount, vendor, and attendee names
+                            </div>
+                            <div class="agent-plugins">
+                                <span class="plugin-tag"><i class="fas fa-database"></i> DB Plugin</span>
+                            </div>
+                            <div class="agent-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-entity"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text-entity">Idle</span>
+                            </div>
+                        </div>
+                        <div class="agent-status" id="status-entity">
+                            <i class="fas fa-circle"></i> Standby
+                        </div>
+                    </div>
+
+                    <!-- Agent 4: Cvent-Concur Reconciliation -->
+                    <div class="agent-card" id="agent-cvent" data-agent="cvent">
+                        <div class="agent-header">
+                            <div class="agent-icon cvent">
+                                <i class="fas fa-check-double"></i>
+                            </div>
+                            <div class="agent-title">
+                                <h4>CventConcurReconciliationAgent</h4>
+                                <span class="agent-role">Phase 2 Reconciliation</span>
+                            </div>
+                        </div>
+                        <div class="agent-body">
+                            <div class="agent-description">
+                                Links Concur expenses to Cvent entities, closes the loop
+                            </div>
+                            <div class="agent-plugins">
+                            </div>
+                            <div class="agent-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-cvent"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text-cvent">Idle</span>
+                            </div>
+                        </div>
+                        <div class="agent-status" id="status-cvent">
+                            <i class="fas fa-circle"></i> Standby
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connection Lines SVG -->
+                <svg class="connection-lines" id="connection-svg">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#6366f1"/>
+                        </marker>
+                        <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+
+                <!-- Data Flow Animation -->
+                <div class="data-flow-container" id="data-flow">
+                    <!-- Data packets will be injected here -->
+                </div>
+
+                <!-- Controls -->
+                <div class="controls-panel">
+                    <button class="btn btn-primary" id="btn-start">
+                        <i class="fas fa-play"></i> Start Demo
+                    </button>
+                    <button class="btn btn-secondary" id="btn-reset" disabled>
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="btn btn-outline" id="btn-step" disabled>
+                        <i class="fas fa-step-forward"></i> Step Through
+                    </button>
+                    <div class="speed-control">
+                        <label>Speed:</label>
+                        <input type="range" id="speed-slider" min="1" max="5" value="3">
+                        <span id="speed-label">Normal</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel - Activity & Results -->
+            <aside class="right-panel">
+                <!-- Activity Log -->
+                <div class="panel-section activity-section">
+                    <h3><i class="fas fa-stream"></i> Activity Log</h3>
+                    <div class="activity-log" id="activity-log">
+                        <div class="log-entry system">
+                            <span class="log-time">--:--:--</span>
+                            <span class="log-message">System initialized. Ready to start demo.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Processing Stats -->
+                <div class="panel-section stats-section">
+                    <h3><i class="fas fa-chart-bar"></i> Processing Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-invoices">0</span>
+                            <span class="stat-name">Invoices Processed</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-entities">0</span>
+                            <span class="stat-name">Entities Extracted</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-phase1">0</span>
+                            <span class="stat-name">Phase 1 Matches</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-phase2">0</span>
+                            <span class="stat-name">Phase 2 Complete</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Current Document -->
+                <div class="panel-section document-section">
+                    <h3><i class="fas fa-file-alt"></i> Current Document</h3>
+                    <div class="document-preview" id="document-preview">
+                        <div class="empty-state">
+                            <i class="fas fa-file-invoice"></i>
+                            <span>No document being processed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Business Impact -->
+                <div class="panel-section impact-section">
+                    <h3><i class="fas fa-rocket"></i> Business Impact</h3>
+                    <div class="impact-metrics">
+                        <div class="impact-item">
+                            <i class="fas fa-clock"></i>
+                            <div class="impact-text">
+                                <span class="impact-label">Turnaround Time</span>
+                                <span class="impact-value">Days → Hours</span>
+                            </div>
+                        </div>
+                        <div class="impact-item">
+                            <i class="fas fa-bug"></i>
+                            <div class="impact-text">
+                                <span class="impact-label">Error Reduction</span>
+                                <span class="impact-value">Automated Matching</span>
+                            </div>
+                        </div>
+                        <div class="impact-item">
+                            <i class="fas fa-user-check"></i>
+                            <div class="impact-text">
+                                <span class="impact-label">Human-in-the-Loop</span>
+                                <span class="impact-value">Review & Override</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-left">
+                <span><i class="fas fa-server"></i> Airflow Orchestration</span>
+                <span><i class="fab fa-aws"></i> AWS CloudWatch Logging</span>
+                <span><i class="fas fa-shield-alt"></i> Full Audit Trail</span>
+            </div>
+            <div class="footer-right">
+                <span class="tech-badge">Semantic Kernel</span>
+                <span class="tech-badge">Multimodal LLM</span>
+                <span class="tech-badge">Plugin Architecture</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for detailed views -->
+    <div class="modal" id="detail-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Agent Details</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Dynamic content -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/demo-data.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
