@@ -368,6 +368,110 @@ body {
 }
 
 /* ============================================
+   RPA Bots Section
+   ============================================ */
+.rpa-bots-section {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.rpa-bots-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+}
+
+.rpa-bot-card {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: var(--transition-normal);
+}
+
+.rpa-bot-card:hover {
+    background: var(--bg-elevated);
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+
+.rpa-bot-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(244, 114, 182, 0.15);
+    color: var(--accent);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.rpa-bot-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+}
+
+.rpa-bot-info h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.rpa-bot-role {
+    font-size: 0.65rem;
+    color: var(--primary-light);
+    font-weight: 500;
+}
+
+.rpa-bot-desc {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.3;
+}
+
+.rpa-bot-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.6rem;
+    color: var(--success);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.rpa-bot-status i {
+    font-size: 5px;
+}
+
+/* Responsive RPA Bots */
+@media (max-width: 1200px) {
+    .rpa-bots-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .rpa-bots-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .rpa-bots-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
    Agents Grid - Compact Cards
    ============================================ */
 .agents-grid {
